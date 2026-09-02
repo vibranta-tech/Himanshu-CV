@@ -1,60 +1,41 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshWobbleMaterial, Points, PointMaterial } from '@react-three/drei';
+import { Float, Points, PointMaterial } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 
-function FloatingParticles(props) {
+function Particles() {
   const ref = useRef();
-  // Generate 1200 random points inside a sphere of radius 3
-  const [sphere] = React.useState(() => random.inSphere(new Float32Array(1500), { radius: 3.5 }));
-
-  useFrame((state, delta) => {
+  const [sphere] = React.useState(() => random.inSphere(new Float32Array(1200), { radius: 3 }));
+  useFrame((_, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 15;
-      ref.current.rotation.y -= delta / 20;
+      ref.current.rotation.x -= delta / 18;
+      ref.current.rotation.y -= delta / 22;
     }
   });
-
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
-        <PointMaterial
-          transparent
-          color="#00f2fe"
-          size={0.015}
-          sizeAttenuation={true}
-          depthWrite={false}
-          opacity={0.7}
-        />
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
+        <PointMaterial transparent color="#3b82f6" size={0.012} sizeAttenuation depthWrite={false} opacity={0.5} />
       </Points>
     </group>
   );
 }
 
-function FloatingShape({ position, color, geometry, speed = 1.5 }) {
-  const meshRef = useRef();
-
-  useFrame((state, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x += delta * 0.3 * speed;
-      meshRef.current.rotation.y += delta * 0.4 * speed;
+function Shape({ position, color, type, speed = 1.2 }) {
+  const ref = useRef();
+  useFrame((_, delta) => {
+    if (ref.current) {
+      ref.current.rotation.x += delta * 0.25 * speed;
+      ref.current.rotation.y += delta * 0.35 * speed;
     }
   });
-
   return (
-    <Float speed={speed} rotationIntensity={1} floatIntensity={2} position={position}>
-      <mesh ref={meshRef}>
-        {geometry === 'dodecahedron' && <dodecahedronGeometry args={[0.5, 0]} />}
-        {geometry === 'torus' && <torusGeometry args={[0.4, 0.15, 16, 32]} />}
-        {geometry === 'octahedron' && <octahedronGeometry args={[0.6, 0]} />}
-        <meshStandardMaterial
-          color={color}
-          wireframe={true}
-          transparent={true}
-          opacity={0.4}
-          emissive={color}
-          emissiveIntensity={0.5}
-        />
+    <Float speed={speed} rotationIntensity={0.8} floatIntensity={1.5} position={position}>
+      <mesh ref={ref}>
+        {type === 'dodeca' && <dodecahedronGeometry args={[0.4, 0]} />}
+        {type === 'torus' && <torusGeometry args={[0.35, 0.12, 16, 32]} />}
+        {type === 'octa' && <octahedronGeometry args={[0.45, 0]} />}
+        <meshStandardMaterial color={color} wireframe transparent opacity={0.25} emissive={color} emissiveIntensity={0.3} />
       </mesh>
     </Float>
   );
@@ -62,19 +43,15 @@ function FloatingShape({ position, color, geometry, speed = 1.5 }) {
 
 export default function BackgroundCanvas3D() {
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}>
+    <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
       <Canvas camera={{ position: [0, 0, 3], fov: 60 }} gl={{ alpha: true, antialias: true }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} color="#00f2fe" />
-        <pointLight position={[-10, -10, -5]} intensity={1} color="#7000ff" />
-        
-        <FloatingParticles />
-        
-        {/* Floating 3D geometric shapes representing CS concepts */}
-        <FloatingShape position={[-2.2, 1.2, -1]} color="#00f2fe" geometry="dodecahedron" speed={1.2} />
-        <FloatingShape position={[2.4, -1.0, -1]} color="#7000ff" geometry="torus" speed={1.8} />
-        <FloatingShape position={[2.0, 1.5, -1.5]} color="#00ffb9" geometry="octahedron" speed={1.0} />
-        <FloatingShape position={[-2.0, -1.4, -1.2]} color="#ffb703" geometry="torus" speed={1.4} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[10, 10, 5]} intensity={0.8} color="#3b82f6" />
+        <pointLight position={[-10, -10, -5]} intensity={0.6} color="#4f46e5" />
+        <Particles />
+        <Shape position={[-2, 1, -1]} color="#3b82f6" type="dodeca" speed={1} />
+        <Shape position={[2.2, -0.8, -1]} color="#4f46e5" type="torus" speed={1.4} />
+        <Shape position={[1.8, 1.3, -1.5]} color="#10b981" type="octa" speed={0.8} />
       </Canvas>
     </div>
   );
