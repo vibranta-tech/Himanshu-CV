@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Phone, Linkedin, ArrowDown, Briefcase, GraduationCap } from 'lucide-react';
+import { MapPin, Mail, Phone, ArrowDown, Briefcase, GraduationCap } from 'lucide-react';
+import himanshuPhoto from '../assets/himanshu.png';
 
 export default function HeroSection() {
   const [typed, setTyped] = useState('');
@@ -61,8 +62,8 @@ export default function HeroSection() {
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
             <div className="card" style={{ padding: 'clamp(20px, 4vw, 28px)', textAlign: 'center' }}>
               {/* Profile Image */}
-              <div style={{ width: 'clamp(100px, 25vw, 140px)', height: 'clamp(100px, 25vw, 140px)', borderRadius: '50%', margin: '0 auto 20px', overflow: 'hidden', border: '3px solid var(--accent)', boxShadow: '0 0 30px rgba(59, 130, 246, 0.15)' }}>
-                <img src="/himanshu.png" alt="Himanshu Mishra" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ width: 'clamp(110px, 25vw, 150px)', height: 'clamp(110px, 25vw, 150px)', borderRadius: '50%', margin: '0 auto 20px', overflow: 'hidden', border: '3px solid var(--accent)', boxShadow: '0 0 30px rgba(59, 130, 246, 0.2)' }}>
+                <img src={himanshuPhoto} alt="Himanshu Mishra" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
 
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '4px' }}>Himanshu Mishra</h3>
