@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Phone, ArrowDown, Briefcase, GraduationCap } from 'lucide-react';
+import { MapPin, Mail, Phone, ArrowDown, Briefcase, GraduationCap, ExternalLink } from 'lucide-react';
 import himanshuPhoto from '../assets/himanshu.png';
 
 export default function HeroSection() {
   const [typed, setTyped] = useState('');
-  const roles = 'CSE Student · Developer · Coordinator Head @ Vibranta';
+  const fullText = 'CSE Student · Developer · Coordinator Head @ ';
 
   useEffect(() => {
     let i = 0;
     const t = setInterval(() => {
-      if (i <= roles.length) { setTyped(roles.slice(0, i)); i++; } else clearInterval(t);
+      if (i <= fullText.length) { setTyped(fullText.slice(0, i)); i++; } else clearInterval(t);
     }, 45);
     return () => clearInterval(t);
   }, []);
@@ -34,10 +34,16 @@ export default function HeroSection() {
               <span className="gradient-text">Himanshu Mishra</span>
             </h1>
 
-            {/* Typing Bar */}
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.72rem, 2.2vw, 0.88rem)', color: 'var(--text-secondary)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Typing Bar with clickable Vibranta link */}
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(0.72rem, 2.2vw, 0.88rem)', color: 'var(--text-secondary)', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
               <span style={{ color: 'var(--accent)' }}>→</span>
               <span>{typed}</span>
+              {typed.length >= fullText.length && (
+                <a href="https://vibranta.in" target="_blank" rel="noopener noreferrer"
+                  style={{ color: 'var(--accent-light)', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: '3px', display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                  Vibranta <ExternalLink size={12} />
+                </a>
+              )}
               <span style={{ animation: 'blink 1s step-end infinite', color: 'var(--accent)' }}>|</span>
             </div>
 
@@ -61,13 +67,18 @@ export default function HeroSection() {
           {/* Right: Photo + Stats Card */}
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
             <div className="card" style={{ padding: 'clamp(24px, 5vw, 32px)', textAlign: 'center' }}>
-              {/* Profile Image - Zoomed & Larger */}
+              {/* Profile Image - Zoomed */}
               <div style={{ width: 'clamp(150px, 32vw, 200px)', height: 'clamp(150px, 32vw, 200px)', borderRadius: '50%', margin: '0 auto 20px', overflow: 'hidden', border: '4px solid var(--accent)', boxShadow: '0 0 35px rgba(59, 130, 246, 0.25)' }}>
                 <img src={himanshuPhoto} alt="Himanshu Mishra" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', transform: 'scale(1.25)', transition: 'transform 0.3s ease' }} />
               </div>
 
               <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '4px' }}>Himanshu Mishra</h3>
-              <p style={{ fontSize: '0.84rem', color: 'var(--accent-light)', fontWeight: 600, marginBottom: '18px' }}>Student Developer & Leader</p>
+              <p style={{ fontSize: '0.84rem', color: 'var(--accent-light)', fontWeight: 600, marginBottom: '18px' }}>
+                Student Developer & Leader @{' '}
+                <a href="https://vibranta.in" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent-light)', textDecoration: 'underline', textUnderlineOffset: '2px' }}>
+                  vibranta.in ↗
+                </a>
+              </p>
 
               {/* Stats Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>

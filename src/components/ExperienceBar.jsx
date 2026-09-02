@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export default function ExperienceBar() {
   return (
@@ -18,7 +18,13 @@ export default function ExperienceBar() {
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '12px', marginBottom: '18px' }}>
             <div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Coordinator Head</h3>
-              <p style={{ fontSize: '0.9rem', color: 'var(--accent-light)', fontWeight: 600 }}>Student Organization Vibranta</p>
+              <p style={{ fontSize: '0.9rem', color: 'var(--accent-light)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '5px' }}>
+                Student Organization{' '}
+                <a href="https://vibranta.in" target="_blank" rel="noopener noreferrer"
+                  style={{ color: 'var(--accent-light)', textDecoration: 'underline', textUnderlineOffset: '3px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                  Vibranta <ExternalLink size={13} />
+                </a>
+              </p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
               <span className="pill"><Calendar size={12} /> 2025 – Present</span>
