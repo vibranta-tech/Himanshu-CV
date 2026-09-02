@@ -60,14 +60,14 @@ export default function HeroSection() {
 
           {/* Right: Photo + Stats Card */}
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.15 }}>
-            <div className="card" style={{ padding: 'clamp(20px, 4vw, 28px)', textAlign: 'center' }}>
-              {/* Profile Image */}
-              <div style={{ width: 'clamp(110px, 25vw, 150px)', height: 'clamp(110px, 25vw, 150px)', borderRadius: '50%', margin: '0 auto 20px', overflow: 'hidden', border: '3px solid var(--accent)', boxShadow: '0 0 30px rgba(59, 130, 246, 0.2)' }}>
-                <img src={himanshuPhoto} alt="Himanshu Mishra" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="card" style={{ padding: 'clamp(24px, 5vw, 32px)', textAlign: 'center' }}>
+              {/* Profile Image - Zoomed & Larger */}
+              <div style={{ width: 'clamp(150px, 32vw, 200px)', height: 'clamp(150px, 32vw, 200px)', borderRadius: '50%', margin: '0 auto 20px', overflow: 'hidden', border: '4px solid var(--accent)', boxShadow: '0 0 35px rgba(59, 130, 246, 0.25)' }}>
+                <img src={himanshuPhoto} alt="Himanshu Mishra" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', transform: 'scale(1.25)', transition: 'transform 0.3s ease' }} />
               </div>
 
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '4px' }}>Himanshu Mishra</h3>
-              <p style={{ fontSize: '0.82rem', color: 'var(--accent-light)', fontWeight: 600, marginBottom: '16px' }}>Student Developer & Leader</p>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '4px' }}>Himanshu Mishra</h3>
+              <p style={{ fontSize: '0.84rem', color: 'var(--accent-light)', fontWeight: 600, marginBottom: '18px' }}>Student Developer & Leader</p>
 
               {/* Stats Grid */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
